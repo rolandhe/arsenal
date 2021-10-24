@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.rolandhe.fileserver.ctrl.mapper.UploadFileMapper">
+    <insert id="addUploadFile" parameterType="UploadFile" useGeneratedKeys="true" keyProperty="id">
+        insert into upload_file(product,file_name,upload_user,name_hash,upload_time,proc_time)
+        values(
+        #{product},
+        #{fileName},
+        #{uploadUser},
+        #{nameHash},
+        #{uploadTime},
+        #{procTime}
+        )
+    </insert>
+    <select id="deleteLogic"  parameterType="long">
+        update upload_file set deleted = 1 where id = #{id}
+    </select>
+    <update id="updateStatus">
+        update upload_file set proc_status = #{status},proc_time=now() where id = #{id}
+    </update>
+    <update id="updateStatusWithName">
+        update upload_file set file_name=#{fileName},name_hash=#{nameHash},proc_status = #{status},proc_time=now() where id = #{id}
+    </update>
+    <select id="findById" resultType="UploadFile" parameterType="long">
+        SELECT * FROM upload_file where id = #{id} and deleted=0
+    </select>
+    <select id="findByNameHash" resultType="UploadFile" parameterType="long">
+        SELECT * FROM upload_file where name_hash=#{nameHash} and deleted=0
+    </select>
+
+</mapper>
