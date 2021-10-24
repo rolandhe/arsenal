@@ -34,6 +34,11 @@ public class DefaultFileSender implements FileSender {
             logger.info(fileName, e);
             return null;
         }
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return rawFileName;
     }
 }

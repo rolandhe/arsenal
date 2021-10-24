@@ -13,6 +13,11 @@ public class SimpleFileServerConfig implements FileServerConfig {
     }
 
     @Override
+    public String getExceedMaxConcurrentReturnMessage(StdPath stdPath) {
+        return  "exceed max concurrent error with " + stdPath.getUri();
+    }
+
+    @Override
     public String getInternalErrReturnMessage(StdPath stdPath) {
         return "meet internal error with " + stdPath.getUri();
     }

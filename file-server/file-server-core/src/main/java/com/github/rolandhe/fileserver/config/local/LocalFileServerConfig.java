@@ -12,6 +12,11 @@ public class LocalFileServerConfig implements FileServerConfig {
     }
 
     @Override
+    public String getExceedMaxConcurrentReturnMessage(StdPath stdPath) {
+        return null;
+    }
+
+    @Override
     public String getInternalErrReturnMessage(StdPath stdPath) {
         return null;
     }

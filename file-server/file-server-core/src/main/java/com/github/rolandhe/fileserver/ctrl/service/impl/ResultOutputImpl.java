@@ -31,6 +31,17 @@ public class ResultOutputImpl implements ResultOutput {
     }
 
     @Override
+    public void doExceedMaxConcurrentResult(HttpServletResponse response, StdPath stdPath) {
+        String message = configProvider.getActiveConfig().getExceedMaxConcurrentReturnMessage(stdPath);
+        try {
+            response.getWriter().append(message);
+            response.getWriter().close();
+        } catch (IOException e) {
+            logger.info(stdPath.getUri(), e);
+        }
+    }
+
+    @Override
     public void doInternalResult(HttpServletResponse response, StdPath stdPath) {
         String message = configProvider.getActiveConfig().getInternalErrReturnMessage(stdPath);
         try {

@@ -1,6 +1,6 @@
 server:
   tomcat:
-    max-threads: 64
+    max-threads: 32
     max-connections: 128
   port: 8000
 
@@ -21,6 +21,7 @@ spring:
 
 file-server:
   max-threads: 128
+  max-upload-concurrent: 192
   temp-root: /Users/hexiufeng/fs-root/temp
   default-store-root: /Users/hexiufeng/fs-root/data
   config-bean-name: simpleFsConfig
