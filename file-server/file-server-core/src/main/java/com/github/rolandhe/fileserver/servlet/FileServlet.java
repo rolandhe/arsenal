@@ -4,6 +4,7 @@ import com.github.rolandhe.fileserver.config.ConfigProvider;
 import com.github.rolandhe.fileserver.consts.ConstValues;
 import com.github.rolandhe.fileserver.ctrl.service.ResultOutput;
 import com.github.rolandhe.fileserver.ctrl.service.UploadFlow;
+import com.github.rolandhe.fileserver.login.LoginValidatorProvider;
 import com.github.rolandhe.fileserver.servlet.local.FileProcess;
 import com.github.rolandhe.fileserver.servlet.local.LocalFileProcess;
 import com.github.rolandhe.fileserver.std.StdPath;
@@ -52,6 +53,9 @@ public class FileServlet extends HttpServlet {
     @Resource
     private UploadFlow uploadFlow;
 
+    @Resource
+    private LoginValidatorProvider loginValidatorProvider;
+
     private ExecutorService executorService;
 
     @PostConstruct
@@ -85,11 +89,16 @@ public class FileServlet extends HttpServlet {
         StdPath stdPath = StdPath.parse(uri);
         AsyncContext asyncContext = req.startAsync();
         asyncContext.setTimeout(0L);
-        String uploadUser = (String) req.getAttribute(ConstValues.LOGIN_VAR_NAME);
+
         executorService.execute(() -> {
-            FileProcess fileProcess = process(asyncContext, stdPath);
-            if (fileProcess != null) {
-                doSend(resp, fileProcess, stdPath, uploadUser);
+            String uploadUser = loginValidatorProvider.getActiveLoginValidator().getLoginUser();
+            if (StringUtils.isEmpty(uploadUser)) {
+                loginValidatorProvider.getActiveLoginValidator().loginNext((HttpServletResponse) asyncContext.getResponse());
+            } else {
+                FileProcess fileProcess = process(asyncContext, stdPath);
+                if (fileProcess != null) {
+                    doSend(resp, fileProcess, stdPath, uploadUser);
+                }
             }
             asyncContext.complete();
         });
