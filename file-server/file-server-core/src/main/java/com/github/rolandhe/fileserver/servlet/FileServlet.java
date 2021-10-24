@@ -120,26 +120,11 @@ public class FileServlet extends HttpServlet {
     }
 
     private void addListener(AsyncContext asyncContext, StdPath stdPath, CostTimeStat costTimeStat) {
-        asyncContext.addListener(new AsyncListener() {
+        asyncContext.addListener(new FocusCompleteLister() {
             @Override
             public void onComplete(AsyncEvent asyncEvent) throws IOException {
                 limitCtrl.release();
                 costTimeStat.endStat("upload file from", stdPath.getUri());
-            }
-
-            @Override
-            public void onTimeout(AsyncEvent asyncEvent) throws IOException {
-
-            }
-
-            @Override
-            public void onError(AsyncEvent asyncEvent) throws IOException {
-
-            }
-
-            @Override
-            public void onStartAsync(AsyncEvent asyncEvent) throws IOException {
-
             }
         });
     }
