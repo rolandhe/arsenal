@@ -124,7 +124,7 @@ public class FileServlet extends HttpServlet {
             @Override
             public void onComplete(AsyncEvent asyncEvent) throws IOException {
                 limitCtrl.release();
-                costTimeStat.endStat("upload file from " + stdPath.getUri());
+                costTimeStat.endStat("upload file from", stdPath.getUri());
             }
 
             @Override
@@ -182,7 +182,7 @@ public class FileServlet extends HttpServlet {
             resultOutput.doInternalResult(response, stdPath);
         } finally {
             fileProcess.clean();
-            costTimeStat.endStat("send file " + stdPath.getUri());
+            costTimeStat.endStat("send file", stdPath.getUri());
         }
     }
 
@@ -215,7 +215,7 @@ public class FileServlet extends HttpServlet {
         } catch (IOException e) {
             logger.info(stdPath.getUri(), e);
         } finally {
-            costTimeStat.endStat("read file and store from" + stdPath.getUri());
+            costTimeStat.endStat("read file and store from", stdPath.getUri());
         }
         return fileProcess;
     }

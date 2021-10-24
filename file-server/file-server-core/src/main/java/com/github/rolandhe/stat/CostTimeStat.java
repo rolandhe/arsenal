@@ -24,7 +24,21 @@ public class CostTimeStat {
         return new CostTimeStat(logger);
     }
 
-    public void endStat(String prefix) {
-        logger.info("{}, cost {} ms", prefix, System.currentTimeMillis() - startTime);
+    public void endStat(String... prefix) {
+        if(prefix.length == 0) {
+            logger.info("cost {} ms", prefix, System.currentTimeMillis() - startTime);
+            return;
+        }
+        Object[] vars = new Object[prefix.length + 1];
+        int index = 0;
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String p: prefix) {
+            stringBuilder.append("{} ");
+            vars[index++] = p;
+        }
+        vars[index] = System.currentTimeMillis() - startTime;
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append(",").append("cost {} ms.");
+        logger.info(stringBuilder.toString(), vars);
     }
 }
