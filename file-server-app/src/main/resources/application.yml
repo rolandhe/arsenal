@@ -1,5 +1,0 @@
-debug: true
-spring:
-  profiles:
-    include: mybatis
-    active: dev
