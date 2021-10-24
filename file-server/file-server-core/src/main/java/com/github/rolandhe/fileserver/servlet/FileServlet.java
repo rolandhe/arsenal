@@ -42,6 +42,7 @@ public class FileServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(FileServlet.class);
 
     private static final String MEET_ERROR_OF_GET_USER = new String();
+    public static final int MAX_BUFF_SIZE = 8096;
 
     @Value("${file-server.max-threads}")
     private int threadCount;
@@ -207,7 +208,7 @@ public class FileServlet extends HttpServlet {
 
     private FileProcess readContent(InputStream inputStream, HttpServletResponse response, StdPath stdPath, String remoteName) throws IOException {
         logger.info("begin to read file from http request:{}, remote file {}", stdPath.getUri(), remoteName);
-        byte[] buff = new byte[8096];
+        byte[] buff = new byte[MAX_BUFF_SIZE];
         int size = 0;
         int maxLimit = configProvider.getActiveConfig().getMaxFileLimit(stdPath);
         FileProcess fileProcess = new LocalFileProcess(tempRoot, remoteName);
