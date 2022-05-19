@@ -223,6 +223,7 @@ public class FileServlet extends HttpServlet {
             }
             if (maxLimit > 0 && size > maxLimit) {
                 fastEnd = true;
+                inputStream.close();
                 break;
             }
             ByteBuffer byteBuffer = ByteBuffer.wrap(buff, 0, len);

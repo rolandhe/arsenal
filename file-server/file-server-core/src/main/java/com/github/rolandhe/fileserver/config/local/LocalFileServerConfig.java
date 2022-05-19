@@ -37,7 +37,7 @@ public class LocalFileServerConfig implements FileServerConfig {
     }
 
     @Override
-    public String getConfigSenderRoleName(StdPath stdPath) {
+    public String getConfigSenderRuleName(StdPath stdPath) {
         return null;
     }
 }

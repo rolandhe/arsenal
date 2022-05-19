@@ -36,7 +36,7 @@ public class UploadFlowImpl implements UploadFlow {
     public String control(StdPath stdPath, String localFile, String uploadUser) {
         UploadFile uploadFile = initFile(stdPath, localFile, uploadUser);
         logger.info("insert db to init upload file,{}, from {}", localFile, stdPath.getUri());
-        String senderRole = configProvider.getActiveConfig().getConfigSenderRoleName(stdPath);
+        String senderRole = configProvider.getActiveConfig().getConfigSenderRuleName(stdPath);
         FileSender fileSender = senderProvider.matchFileSender(senderRole);
         String target = null;
         try {

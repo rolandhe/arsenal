@@ -10,5 +10,5 @@ public interface FileServerConfig {
     String getExceedReturnMessage(StdPath stdPath);
     String getSuccessReturnMessage(StdPath stdPath);
     int getMaxFileLimit(StdPath stdPath);
-    String getConfigSenderRoleName(StdPath stdPath);
+    String getConfigSenderRuleName(StdPath stdPath);
 }

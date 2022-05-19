@@ -38,7 +38,7 @@ public class SimpleFileServerConfig implements FileServerConfig {
     }
 
     @Override
-    public String getConfigSenderRoleName(StdPath stdPath) {
+    public String getConfigSenderRuleName(StdPath stdPath) {
         return ConstValues.DEFAULT_ROLE_NAME;
     }
 }
